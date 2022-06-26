@@ -17,7 +17,7 @@ class LazyImageView: UIImageView {
 
 	var imageUrlString: String?
 
-	//MARK: - Public methods
+	//MARK: - Public functions
 
 	func loadImageUsingUrl(_ url: URL?) {
 		guard let url = url else {
@@ -33,23 +33,21 @@ class LazyImageView: UIImageView {
 		}
 
 		URLSession.shared.dataTask(with: url, completionHandler: { (data, respones, error) in
-			if error != nil {
-				print(error!)
+			guard error == nil else {
+				print(error ?? "Error occured while downloading image")
 				return
 			}
 
 			DispatchQueue.main.async(execute: { [weak self] in
 				guard
 					let data = data,
-					let imageToCache = UIImage(data: data)
+					let imageToCache = UIImage(data: data),
+					self?.imageUrlString == url.absoluteString
 				else {
 					return
 				}
 
-				if self?.imageUrlString == url.absoluteString {
-					self?.image = imageToCache
-				}
-
+				self?.image = imageToCache
 				LazyImageView.imageCache.setObject(imageToCache, forKey: url.absoluteString as NSString)
 			})
 

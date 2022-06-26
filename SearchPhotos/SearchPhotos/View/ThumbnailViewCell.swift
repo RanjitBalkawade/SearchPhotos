@@ -17,7 +17,7 @@ class ThumbnailViewCell: UICollectionViewCell {
 
 	static let reuseIdentifier = "ThumbnailCell"
 
-	//MARK: - Life cycle methods
+	//MARK: - Life cycle functions
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
@@ -25,7 +25,7 @@ class ThumbnailViewCell: UICollectionViewCell {
 		self.imageView.image = nil
 	}
 
-	//MARK: - Public methods
+	//MARK: - Public functions
 
 	func configureCell(viewModel: ThumbnailViewModel) {
 		self.imageView.loadImageUsingUrl(viewModel.imageURL)

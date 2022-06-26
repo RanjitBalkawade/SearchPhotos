@@ -9,11 +9,17 @@ import Foundation
 
 class HomeViewModel {
 
+	//MARK: - Public properties
+
 	var thumbnailViewModels: [ThumbnailViewModel] = []
+
+	//MARK: - Private properties
 
 	private let service: PhotosSearchGetServiceProtocol
 	private var photos: [Photo] = []
 	private var page = 0
+
+	//MARK: - Initializer
 
 	init(service: PhotosSearchGetServiceProtocol) {
 		self.service = service

@@ -8,6 +8,9 @@
 import UIKit
 
 class AlertHelper {
+
+	//MARK: - Public functions
+
 	static func getNoDataAlert() -> UIAlertController {
 		let alert = UIAlertController(
 			title: "",

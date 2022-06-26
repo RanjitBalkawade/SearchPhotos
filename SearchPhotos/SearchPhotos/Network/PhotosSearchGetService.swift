@@ -23,7 +23,7 @@ class PhotosSearchGetService: GetService<PhotosSearchGetResponse>, KeyEnabled {
 			"method": "flickr.photos.search",
 			"format": "json",
 			"nojsoncallback": "1",
-			"per_page": "10"
+			"per_page": "20"
 		]
 	}
 

@@ -9,7 +9,11 @@ import Foundation
 
 class ThumbnailViewModel {
 
+	//MARK: - Public properties
+
 	var imageURL: URL?
+
+	//MARK: - Initializer
 
 	init(imageURL: URL?) {
 		self.imageURL = imageURL

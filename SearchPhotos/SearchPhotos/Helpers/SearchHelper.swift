@@ -9,13 +9,19 @@ import Foundation
 
 class SearchHelper {
 
+	//MARK: - Public properties
+
 	static let shared = SearchHelper()
 
-	let searchTermsKey = "searchTerms"
+	//MARK: - Private properties
+
+	private let searchTermsKey = "searchTerms"
 
 	private var searchTerms: [String]? {
 		get {
-			guard let searchTerms = UserDefaults.standard.value(forKey: searchTermsKey) as? [String] else {
+			guard
+				let searchTerms = UserDefaults.standard.value(forKey: searchTermsKey) as? [String]
+			else {
 				return nil
 			}
 			return searchTerms
@@ -25,6 +31,8 @@ class SearchHelper {
 			UserDefaults.standard.synchronize()
 		}
 	}
+
+	//MARK: - Public functions
 
 	func getSearchTerms() -> [String]? {
 		self.searchTerms

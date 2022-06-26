@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
+class HomeViewController: UIViewController {
 
 	//MARK: - IBOutlets
 
@@ -28,7 +28,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
 		}
 	}
 
-	let searchHistoryViewController: SearchHistoryViewController = {
+	private let searchHistoryViewController: SearchHistoryViewController = {
 		let storyboard = UIStoryboard(name: "Main", bundle: .main)
 
 		guard
@@ -39,12 +39,15 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
 		return viewController
 	}()
 
+	//MARK: - Life cycle functions
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.searchController = UISearchController(searchResultsController: self.searchHistoryViewController)
 		self.navigationItem.searchController = self.searchController
 		self.searchController?.searchResultsUpdater = self.searchHistoryViewController
 		self.searchController?.searchBar.delegate = self
+		self.searchHistoryViewController.delegate = self
 
 		self.collectionView.delegate = self
 		self.collectionView.dataSource = self
@@ -53,8 +56,9 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
 	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
 		super.viewWillTransition(to: size, with: coordinator)
 		self.collectionView.collectionViewLayout.invalidateLayout()
-
 	}
+
+	//MARK: - Private functions
 
 	private func loadData() {
 		guard let searchTerm = self.searchTerm else {
@@ -78,22 +82,13 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
 		}
 	}
 
-	func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-		self.searchController?.isActive = true
+	private func canLoadMoreData(_ visibleItemIndex: Int) -> Bool {
+		visibleItemIndex == self.viewModel.thumbnailViewModels.count - 10
 	}
 
-	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-		defer {
-			self.searchController?.isActive = false
-		}
+}
 
-		guard let searchTerm = searchBar.text else {
-			return
-		}
-
-		self.searchTerm = searchTerm
-		SearchHelper.shared.add(searchTerm: searchTerm)
-	}
+extension HomeViewController: UICollectionViewDataSource {
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		self.viewModel.thumbnailViewModels.count
@@ -110,6 +105,10 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
 		return cell
 	}
 
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+
 	func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 		guard self.canLoadMoreData(indexPath.row) else {
 			return
@@ -118,12 +117,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
 		self.loadData()
 	}
 
-	private func canLoadMoreData(_ visibleItemIndex: Int) -> Bool {
-		visibleItemIndex == self.viewModel.thumbnailViewModels.count - 10
-	}
-
 }
-
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
@@ -142,4 +136,33 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 		return insets.left
 	}
+}
+
+extension HomeViewController: UISearchBarDelegate {
+
+	func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+		self.searchController?.isActive = true
+	}
+
+	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+		defer {
+			self.searchController?.isActive = false
+		}
+
+		guard let searchTerm = searchBar.text else {
+			return
+		}
+
+		self.searchTerm = searchTerm
+		SearchHelper.shared.add(searchTerm: searchTerm)
+	}
+}
+
+extension HomeViewController: SearchHistoryViewControllerDelegate {
+
+	func searchHistoryTextSelected(text: String) {
+		self.searchTerm = text
+		self.searchController?.isActive = false
+	}
+
 }

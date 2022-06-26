@@ -7,49 +7,29 @@
 
 import UIKit
 
-class SearchHistoryViewModel {
-
-	var filteredSearchTerms: [String] = []
-
-	private var searchTerms: [String] {
-		SearchHelper.shared.getSearchTerms() ?? []
-	}
-
-	init() {
-		self.filteredSearchTerms = self.searchTerms
-	}
-
-	func updateData(_ searchText: String, completion: () -> Void) {
-		let filteredSearchTerms = self.searchTerms.filter {
-			$0.lowercased().contains(searchText.lowercased())
-		}
-
-		self.filteredSearchTerms = filteredSearchTerms.isEmpty ? self.searchTerms : filteredSearchTerms
-		completion()
-	}
-
+protocol SearchHistoryViewControllerDelegate: AnyObject {
+	func searchHistoryTextSelected(text: String)
 }
 
-class SearchHistoryViewController: UIViewController, UISearchResultsUpdating {
+class SearchHistoryViewController: UIViewController {
+
+	//MARK: - IBOutlets
 
 	@IBOutlet private weak var tableView: UITableView!
+
+	//MARK: - Public properties
+
+	weak var delegate: SearchHistoryViewControllerDelegate?
+
+	//MARK: - Private properties
 
 	private let viewModel = SearchHistoryViewModel()
 	private let cellIndentifier = "SearchTermCell"
 
+	//MARK: - Life cycle functions
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-	}
-
-	func updateSearchResults(for searchController: UISearchController) {
-		guard let text = searchController.searchBar.text else {
-			return
-		}
-
-		self.viewModel.updateData(text) {
-			self.tableView.reloadData()
-		}
 	}
 
 }
@@ -62,9 +42,30 @@ extension SearchHistoryViewController: UITableViewDataSource {
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIndentifier, for: indexPath)
-
 		cell.textLabel?.text = self.viewModel.filteredSearchTerms[indexPath.row]
-
 		return cell
 	}
+
+}
+
+extension SearchHistoryViewController: UITableViewDelegate {
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		self.delegate?.searchHistoryTextSelected(text: self.viewModel.filteredSearchTerms[indexPath.row])
+	}
+
+}
+
+extension SearchHistoryViewController: UISearchResultsUpdating {
+
+	func updateSearchResults(for searchController: UISearchController) {
+		guard let text = searchController.searchBar.text else {
+			return
+		}
+
+		self.viewModel.updateData(text) {
+			self.tableView.reloadData()
+		}
+	}
+
 }
