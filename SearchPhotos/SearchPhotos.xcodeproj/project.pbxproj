@@ -28,7 +28,22 @@
 		ED41672E2868B3DD009C6598 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED41672D2868B3DD009C6598 /* AlertHelper.swift */; };
 		ED4167302868CFBC009C6598 /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED41672F2868CFBC009C6598 /* SearchHistoryViewController.swift */; };
 		ED4167322868CFEF009C6598 /* SearchHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4167312868CFEF009C6598 /* SearchHelper.swift */; };
+		EDAA49A02868EA8800D899C5 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAA499F2868EA8800D899C5 /* MockURLProtocol.swift */; };
+		EDAA49A22868EAA500D899C5 /* GetServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAA49A12868EAA500D899C5 /* GetServiceTests.swift */; };
+		EDAA49A42868EAD700D899C5 /* PhotosSearchGetServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAA49A32868EAD700D899C5 /* PhotosSearchGetServiceTests.swift */; };
+		EDAA49A62868EB0C00D899C5 /* SampleImage.png in Resources */ = {isa = PBXBuildFile; fileRef = EDAA49A52868EB0C00D899C5 /* SampleImage.png */; };
+		EDAA49A82868EB3A00D899C5 /* LazyImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAA49A72868EB3A00D899C5 /* LazyImageViewTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EDAA49982868E9C000D899C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ED4166EB2868554C009C6598 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ED4166F22868554C009C6598;
+			remoteInfo = SearchPhotos;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		ED4166F32868554C009C6598 /* SearchPhotos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchPhotos.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,10 +69,23 @@
 		ED41672D2868B3DD009C6598 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		ED41672F2868CFBC009C6598 /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
 		ED4167312868CFEF009C6598 /* SearchHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHelper.swift; sourceTree = "<group>"; };
+		EDAA49942868E9C000D899C5 /* SearchPhotosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SearchPhotosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDAA499F2868EA8800D899C5 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		EDAA49A12868EAA500D899C5 /* GetServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetServiceTests.swift; sourceTree = "<group>"; };
+		EDAA49A32868EAD700D899C5 /* PhotosSearchGetServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosSearchGetServiceTests.swift; sourceTree = "<group>"; };
+		EDAA49A52868EB0C00D899C5 /* SampleImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SampleImage.png; sourceTree = "<group>"; };
+		EDAA49A72868EB3A00D899C5 /* LazyImageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyImageViewTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		ED4166F02868554C009C6598 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EDAA49912868E9C000D899C5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -71,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				ED4166F52868554C009C6598 /* SearchPhotos */,
+				EDAA49952868E9C000D899C5 /* SearchPhotosTests */,
 				ED4166F42868554C009C6598 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				ED4166F32868554C009C6598 /* SearchPhotos.app */,
+				EDAA49942868E9C000D899C5 /* SearchPhotosTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -152,6 +182,34 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		EDAA49952868E9C000D899C5 /* SearchPhotosTests */ = {
+			isa = PBXGroup;
+			children = (
+				EDAA499D2868E9CB00D899C5 /* Network */,
+				EDAA499E2868EA6400D899C5 /* CustomViews */,
+			);
+			path = SearchPhotosTests;
+			sourceTree = "<group>";
+		};
+		EDAA499D2868E9CB00D899C5 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				EDAA499F2868EA8800D899C5 /* MockURLProtocol.swift */,
+				EDAA49A12868EAA500D899C5 /* GetServiceTests.swift */,
+				EDAA49A32868EAD700D899C5 /* PhotosSearchGetServiceTests.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		EDAA499E2868EA6400D899C5 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				EDAA49A72868EB3A00D899C5 /* LazyImageViewTests.swift */,
+				EDAA49A52868EB0C00D899C5 /* SampleImage.png */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -172,6 +230,24 @@
 			productReference = ED4166F32868554C009C6598 /* SearchPhotos.app */;
 			productType = "com.apple.product-type.application";
 		};
+		EDAA49932868E9C000D899C5 /* SearchPhotosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EDAA499C2868E9C000D899C5 /* Build configuration list for PBXNativeTarget "SearchPhotosTests" */;
+			buildPhases = (
+				EDAA49902868E9C000D899C5 /* Sources */,
+				EDAA49912868E9C000D899C5 /* Frameworks */,
+				EDAA49922868E9C000D899C5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EDAA49992868E9C000D899C5 /* PBXTargetDependency */,
+			);
+			name = SearchPhotosTests;
+			productName = SearchPhotosTests;
+			productReference = EDAA49942868E9C000D899C5 /* SearchPhotosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -184,6 +260,10 @@
 				TargetAttributes = {
 					ED4166F22868554C009C6598 = {
 						CreatedOnToolsVersion = 13.1;
+					};
+					EDAA49932868E9C000D899C5 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = ED4166F22868554C009C6598;
 					};
 				};
 			};
@@ -201,6 +281,7 @@
 			projectRoot = "";
 			targets = (
 				ED4166F22868554C009C6598 /* SearchPhotos */,
+				EDAA49932868E9C000D899C5 /* SearchPhotosTests */,
 			);
 		};
 /* End PBXProject section */
@@ -213,6 +294,14 @@
 				ED4167032868554E009C6598 /* LaunchScreen.storyboard in Resources */,
 				ED4167002868554E009C6598 /* Assets.xcassets in Resources */,
 				ED4166FE2868554C009C6598 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EDAA49922868E9C000D899C5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDAA49A62868EB0C00D899C5 /* SampleImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,7 +333,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EDAA49902868E9C000D899C5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDAA49A82868EB3A00D899C5 /* LazyImageViewTests.swift in Sources */,
+				EDAA49A22868EAA500D899C5 /* GetServiceTests.swift in Sources */,
+				EDAA49A42868EAD700D899C5 /* PhotosSearchGetServiceTests.swift in Sources */,
+				EDAA49A02868EA8800D899C5 /* MockURLProtocol.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EDAA49992868E9C000D899C5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ED4166F22868554C009C6598 /* SearchPhotos */;
+			targetProxy = EDAA49982868E9C000D899C5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		ED4166FC2868554C009C6598 /* Main.storyboard */ = {
@@ -438,6 +546,52 @@
 			};
 			name = Release;
 		};
+		EDAA499A2868E9C000D899C5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F5WD84SM96;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RanjeetBalkawade.com.SearchPhotosTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SearchPhotos.app/SearchPhotos";
+			};
+			name = Debug;
+		};
+		EDAA499B2868E9C000D899C5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F5WD84SM96;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RanjeetBalkawade.com.SearchPhotosTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SearchPhotos.app/SearchPhotos";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -455,6 +609,15 @@
 			buildConfigurations = (
 				ED4167082868554E009C6598 /* Debug */,
 				ED4167092868554E009C6598 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EDAA499C2868E9C000D899C5 /* Build configuration list for PBXNativeTarget "SearchPhotosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EDAA499A2868E9C000D899C5 /* Debug */,
+				EDAA499B2868E9C000D899C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
