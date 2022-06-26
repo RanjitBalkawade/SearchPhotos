@@ -11,5 +11,23 @@ class ThumbnailViewCell: UICollectionViewCell {
 
 	//MARK: - IBOutlets
 
-	@IBOutlet private weak var imageView: UIImageView!
+	@IBOutlet private weak var imageView: LazyImageView!
+
+	//MARK: - Static properties
+
+	static let reuseIdentifier = "ThumbnailCell"
+
+	//MARK: - Life cycle methods
+
+	override func prepareForReuse() {
+		super.prepareForReuse()
+
+		self.imageView.image = nil
+	}
+
+	//MARK: - Public methods
+
+	func configureCell(viewModel: ThumbnailViewModel) {
+		self.imageView.loadImageUsingUrl(viewModel.imageURL)
+	}
 }

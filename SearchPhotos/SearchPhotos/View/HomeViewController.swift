@@ -14,7 +14,7 @@ class ResultsViewController: UIViewController {
 	}
 }
 
-class ListViewController: UIViewController, UISearchResultsUpdating, UICollectionViewDataSource, UICollectionViewDelegate {
+class HomeViewController: UIViewController, UISearchResultsUpdating, UICollectionViewDataSource, UICollectionViewDelegate {
 
 	//MARK: - IBOutlets
 
@@ -25,8 +25,11 @@ class ListViewController: UIViewController, UISearchResultsUpdating, UICollectio
 	let searchController = UISearchController(searchResultsController: ResultsViewController())
 
 	private let itemsPerRow = 2.0
-	private let reuseIdentifier = "ThumbnailCell"
 	private let insets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+
+	private let viewModel = HomeViewModel(service: Factory.createPhotosSearchGetService())
+
+	private var searchTerm = "hi"
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -35,12 +38,24 @@ class ListViewController: UIViewController, UISearchResultsUpdating, UICollectio
 
 		self.collectionView.delegate = self
 		self.collectionView.dataSource = self
+
+		self.loadData()
 	}
 
 	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
 		super.viewWillTransition(to: size, with: coordinator)
 		self.collectionView.collectionViewLayout.invalidateLayout()
 		self.searchController.showsSearchResultsController = false
+	}
+
+	private func loadData() {
+		self.viewModel.loadData(with: self.searchTerm) { [weak self] error in
+			if error != nil {
+				self?.present(AlertHelper.getNoDataAlert(), animated: true, completion: nil)
+			} else {
+				self?.collectionView.reloadData()
+			}
+		}
 	}
 
 	func updateSearchResults(for searchController: UISearchController) {
@@ -52,24 +67,36 @@ class ListViewController: UIViewController, UISearchResultsUpdating, UICollectio
 	}
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		10
+		self.viewModel.thumbnailViewModels.count
 	}
 
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ThumbnailViewCell else {
+		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThumbnailViewCell.reuseIdentifier, for: indexPath) as? ThumbnailViewCell else {
 			return ThumbnailViewCell()
 		}
 
-		cell.backgroundColor = .red
+		cell.configureCell(viewModel: self.viewModel.thumbnailViewModels[indexPath.row])
 
 		return cell
+	}
+
+	func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+		guard self.canLoadMoreData(indexPath.row) else {
+			return
+		}
+
+		self.loadData()
+	}
+
+	private func canLoadMoreData(_ visibleItemIndex: Int) -> Bool {
+		visibleItemIndex == self.viewModel.thumbnailViewModels.count - 10
 	}
 
 }
 
 
-extension ListViewController: UICollectionViewDelegateFlowLayout {
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		let padding = insets.left * (itemsPerRow + 1)
