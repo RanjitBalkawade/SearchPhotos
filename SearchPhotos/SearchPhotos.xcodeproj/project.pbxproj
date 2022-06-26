@@ -26,6 +26,8 @@
 		ED4167292868B313009C6598 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4167282868B313009C6598 /* HomeViewModel.swift */; };
 		ED41672B2868B371009C6598 /* ThumbnailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED41672A2868B371009C6598 /* ThumbnailViewModel.swift */; };
 		ED41672E2868B3DD009C6598 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED41672D2868B3DD009C6598 /* AlertHelper.swift */; };
+		ED4167302868CFBC009C6598 /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED41672F2868CFBC009C6598 /* SearchHistoryViewController.swift */; };
+		ED4167322868CFEF009C6598 /* SearchHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4167312868CFEF009C6598 /* SearchHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		ED4167282868B313009C6598 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		ED41672A2868B371009C6598 /* ThumbnailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailViewModel.swift; sourceTree = "<group>"; };
 		ED41672D2868B3DD009C6598 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
+		ED41672F2868CFBC009C6598 /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
+		ED4167312868CFEF009C6598 /* SearchHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,7 @@
 				ED416710286861C5009C6598 /* HomeViewController.swift */,
 				ED41672A2868B371009C6598 /* ThumbnailViewModel.swift */,
 				ED41671228686A3B009C6598 /* ThumbnailViewCell.swift */,
+				ED41672F2868CFBC009C6598 /* SearchHistoryViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -142,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				ED41672D2868B3DD009C6598 /* AlertHelper.swift */,
+				ED4167312868CFEF009C6598 /* SearchHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -217,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED4167302868CFBC009C6598 /* SearchHistoryViewController.swift in Sources */,
 				ED4166F72868554C009C6598 /* AppDelegate.swift in Sources */,
 				ED41672B2868B371009C6598 /* ThumbnailViewModel.swift in Sources */,
 				ED41670C28685613009C6598 /* PhotosSearchGetResponse.swift in Sources */,
@@ -225,6 +232,7 @@
 				ED41671828687D9C009C6598 /* PhotosSearchGetService.swift in Sources */,
 				ED4166F92868554C009C6598 /* SceneDelegate.swift in Sources */,
 				ED4167272868B2C5009C6598 /* Factory.swift in Sources */,
+				ED4167322868CFEF009C6598 /* SearchHelper.swift in Sources */,
 				ED41671A28687DB8009C6598 /* KeyEnabledProtocol.swift in Sources */,
 				ED4167252868B281009C6598 /* Photo+extensions.swift in Sources */,
 				ED4167212868B1D8009C6598 /* LazyImageView.swift in Sources */,

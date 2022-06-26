@@ -34,6 +34,12 @@ class HomeViewModel {
 		}
 	}
 
+	func clearData() {
+		self.photos.removeAll()
+		self.thumbnailViewModels.removeAll()
+		self.page = 0
+	}
+
 	//MARK: - Private functions
 
 	private func bindData(_ data: PhotosSearchGetResponse) {

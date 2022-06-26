@@ -7,14 +7,7 @@
 
 import UIKit
 
-class ResultsViewController: UIViewController {
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		self.view.backgroundColor = .red
-	}
-}
-
-class HomeViewController: UIViewController, UISearchResultsUpdating, UICollectionViewDataSource, UICollectionViewDelegate {
+class HomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
 
 	//MARK: - IBOutlets
 
@@ -22,34 +15,53 @@ class HomeViewController: UIViewController, UISearchResultsUpdating, UICollectio
 
 	// MARK: - Private properties
 
-	let searchController = UISearchController(searchResultsController: ResultsViewController())
-
+	private var searchController: UISearchController?
 	private let itemsPerRow = 2.0
 	private let insets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
-
 	private let viewModel = HomeViewModel(service: Factory.createPhotosSearchGetService())
 
-	private var searchTerm = "hi"
+	private var searchTerm: String? {
+		didSet {
+			self.viewModel.clearData()
+			self.loadData()
+			self.setTitle()
+		}
+	}
+
+	let searchHistoryViewController: SearchHistoryViewController = {
+		let storyboard = UIStoryboard(name: "Main", bundle: .main)
+
+		guard
+			let viewController = storyboard.instantiateViewController(withIdentifier: String(describing: SearchHistoryViewController.self)) as? SearchHistoryViewController
+		else {
+			return SearchHistoryViewController()
+		}
+		return viewController
+	}()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		self.searchController = UISearchController(searchResultsController: self.searchHistoryViewController)
 		self.navigationItem.searchController = self.searchController
-		self.searchController.searchResultsUpdater = self
+		self.searchController?.searchResultsUpdater = self.searchHistoryViewController
+		self.searchController?.searchBar.delegate = self
 
 		self.collectionView.delegate = self
 		self.collectionView.dataSource = self
-
-		self.loadData()
 	}
 
 	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
 		super.viewWillTransition(to: size, with: coordinator)
 		self.collectionView.collectionViewLayout.invalidateLayout()
-		self.searchController.showsSearchResultsController = false
+
 	}
 
 	private func loadData() {
-		self.viewModel.loadData(with: self.searchTerm) { [weak self] error in
+		guard let searchTerm = self.searchTerm else {
+			return
+		}
+
+		self.viewModel.loadData(with: searchTerm) { [weak self] error in
 			if error != nil {
 				self?.present(AlertHelper.getNoDataAlert(), animated: true, completion: nil)
 			} else {
@@ -58,12 +70,29 @@ class HomeViewController: UIViewController, UISearchResultsUpdating, UICollectio
 		}
 	}
 
-	func updateSearchResults(for searchController: UISearchController) {
-		guard let text = searchController.searchBar.text else {
+	private func setTitle() {
+		if let searchTerm = self.searchTerm {
+			self.title = "Search results for '\(searchTerm)'"
+		} else {
+			self.title = nil
+		}
+	}
+
+	func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+		self.searchController?.isActive = true
+	}
+
+	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+		defer {
+			self.searchController?.isActive = false
+		}
+
+		guard let searchTerm = searchBar.text else {
 			return
 		}
 
-		print(text)
+		self.searchTerm = searchTerm
+		SearchHelper.shared.add(searchTerm: searchTerm)
 	}
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
